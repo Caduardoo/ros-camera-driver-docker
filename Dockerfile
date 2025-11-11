@@ -36,7 +36,7 @@ RUN rosdep update
 # 7. Instala as dependÃªncias dos nossos pacotes
 # (Pulando 'libcamera' pois estamos compilando ele)
 RUN source /opt/ros/jazzy/setup.bash && \
-    rosdep install -y --from-paths src --ignore-src --rosdistro jazzy --skip-ke>
+    rosdep install -y --from-paths src --ignore-src --rosdistro jazzy --skip-keys=libcamera
 
 # 8. Compila o workspace inteiro
 # Esta Ã© a etapa que vai demorar.
