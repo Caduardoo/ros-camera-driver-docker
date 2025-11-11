@@ -52,5 +52,7 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
 
+ENV ROS_DOMAIN_ID=0
+
 # 10. Define o diretÃ³rio de volta para / (opcional, boa prÃ¡tica)
 WORKDIR /
