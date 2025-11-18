@@ -1,0 +1,40 @@
+{
+    "name": "ROS 2 Development Container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "USERNAME": "ieerasufcg",
+            "USER_UID": "1000",
+            "USER_GID": "1000",
+            "HOST_VIDEO_GID": "44"
+        }
+    },
+
+    //"onCreateCommand": "(sudo groupmod -g 44 video || sudo groupadd --gid 44 video) && sudo usermod -a -G video ieerasufcg",
+
+    "remoteUser": "ieerasufcg",
+    "workspaceFolder": "/home/ws",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
+    
+    "runArgs": [
+        // "--net=host",
+        "--pid=host",
+        "--ipc=host",
+        "--device=/dev/video0",
+        "--device=/dev/video1",
+        "-e", "DISPLAY=${env:DISPLAY}",
+        "-e", "CAM_ID=0",
+        "--privileged"
+    ],
+    "mounts": [
+       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+       "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
+       "source=${localEnv:HOME}/Documents/cdy/VirtualMoCap,target=/home/VirtualMoCap,type=bind,consistency=cached"
+    ],
+    "containerEnv": {
+        "DISPLAY": "unix:0",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "SUBNET",
+        "ROS_DOMAIN_ID": "1"
+    }
+    //"postCreateCommand": "( (sudo groupmod -g 44 video || sudo groupadd --gid 44 video) && sudo usermod -a -G video ieerasufcg ) && sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y -r"
+}
